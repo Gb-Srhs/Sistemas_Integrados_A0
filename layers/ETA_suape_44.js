@@ -1,0 +1,1 @@
+var json_ETA_suape_44 = {"type":"FeatureCollection","name":"ETA_suape_44","crs":{"type":"name","properties":{"name":"urn:ogc:def:crs:OGC:1.3:CRS84"}},"features":[{"type":"Feature","properties":{"id":"1","Nome":"ETA Suape"},"geometry":{"type":"Point","coordinates":[-35.015335075861366,-8.368674497596357]}}]}

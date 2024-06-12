@@ -1,0 +1,1 @@
+var json_suape_45 = {"type":"FeatureCollection","name":"suape_45","crs":{"type":"name","properties":{"name":"urn:ogc:def:crs:OGC:1.3:CRS84"}},"features":[{"type":"Feature","properties":{"id":"1","Nome":"Suape"},"geometry":{"type":"Point","coordinates":[-34.955293697069365,-8.354003281363635]}}]}
