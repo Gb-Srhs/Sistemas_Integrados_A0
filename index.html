@@ -92,11 +92,12 @@
         <script src="data/MunicpioscominvestimentosPEXPENDBeEstado_52.js"></script>
         <script>
         var map = L.map('map', {
-            zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[-9.17221813237097,-39.64848463208334],[-8.405624344376351,-38.5715477395834]]);
+            zoomControl:false, maxZoom:28, minZoom:1
+        }).fitBounds([[-8.903570498321743,-37.47090112423024],[-8.517869989009634,-36.92905599785533]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        // remove popup's row if "visible-with-data"
         function removeEmptyRowsFromPopupContent(content, feature) {
          var tempDiv = document.createElement('div');
          tempDiv.innerHTML = content;
@@ -110,15 +111,23 @@
          }
          return tempDiv.innerHTML;
         }
-        document.querySelector(".leaflet-popup-pane").addEventListener("load", function(event) {
-          var tagName = event.target.tagName,
-            popup = map._popup;
-          // Also check if flag is already set.
-          if (tagName === "IMG" && popup && !popup._updated) {
-            popup._updated = true; // Set flag to prevent looping.
-            popup.update();
-          }
-        }, true);
+        // add class to format popup if it contains media
+		function addClassToPopupIfMedia(content, popup) {
+			var tempDiv = document.createElement('div');
+			tempDiv.innerHTML = content;
+			if (tempDiv.querySelector('td img')) {
+				popup._contentNode.classList.add('media');
+					// Delay to force the redraw
+					setTimeout(function() {
+						popup.update();
+					}, 10);
+			} else {
+				popup._contentNode.classList.remove('media');
+			}
+		}
+        var zoomControl = L.control.zoom({
+            position: 'topleft'
+        }).addTo(map);
         L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
         var measureControl = new L.Control.Measure({
             position: 'topleft',
@@ -128,10 +137,8 @@
             secondaryAreaUnit: 'hectares'
         });
         measureControl.addTo(map);
-        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
-        .innerHTML = '';
-        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
-        .className += ' fas fa-ruler';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0].innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0].className += ' fas fa-ruler';
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
         }
@@ -201,11 +208,11 @@
                         <td colspan="2">' + (feature.properties['ID_REGIAO'] !== null ? autolinker.link(feature.properties['ID_REGIAO'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_municpiosPISFregies_4_0(feature) {
@@ -420,11 +427,11 @@
                         <td colspan="2">' + (feature.properties['AREA_KM2'] !== null ? autolinker.link(feature.properties['AREA_KM2'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_MunicipiosPISFforaPE_5_0() {
@@ -609,11 +616,11 @@
                         <td colspan="2">' + (feature.properties['cocda2017'] !== null ? autolinker.link(feature.properties['cocda2017'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_RioSoFrancisco_6_0() {
@@ -676,11 +683,11 @@
                         <td>' + (feature.properties['encoberto'] !== null ? autolinker.link(feature.properties['encoberto'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_TrechoRioIpojuca_7_0() {
@@ -741,11 +748,11 @@
                         <td>' + (feature.properties['extensao'] !== null ? autolinker.link(feature.properties['extensao'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_SistemasExistentes_8_0() {
@@ -806,11 +813,11 @@
                         <td>' + (feature.properties['extensao'] !== null ? autolinker.link(feature.properties['extensao'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_adutoras_agreste_existentes_leg_dup_9_0() {
@@ -871,11 +878,11 @@
                         <td>' + (feature.properties['extensao'] !== null ? autolinker.link(feature.properties['extensao'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_AdutoraPirangi_10_0() {
@@ -936,11 +943,11 @@
                         <td>' + (feature.properties['extensao'] !== null ? autolinker.link(feature.properties['extensao'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_AdutoraPanelasII_11_0() {
@@ -1001,11 +1008,11 @@
                         <td>' + (feature.properties['extensao'] !== null ? autolinker.link(feature.properties['extensao'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_AdutoraSerroAzulEmObras_12_0() {
@@ -1079,11 +1086,11 @@
                         <td>' + (feature.properties['extensao'] !== null ? autolinker.link(feature.properties['extensao'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_AdutoraSerroAzul_13_0() {
@@ -1144,11 +1151,11 @@
                         <td>' + (feature.properties['extensao'] !== null ? autolinker.link(feature.properties['extensao'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_AdutoradoAltoCapibaribe_14_0() {
@@ -1209,11 +1216,11 @@
                         <td>' + (feature.properties['extensao'] !== null ? autolinker.link(feature.properties['extensao'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_SistemaIntegradodoAgresteEtapa2_15_0() {
@@ -1221,7 +1228,7 @@
                 pane: 'pane_SistemaIntegradodoAgresteEtapa2_15',
                 opacity: 1,
                 color: 'rgba(247,104,161,1.0)',
-                dashArray: '',
+                dashArray: '8.0,16.0',
                 lineCap: 'round',
                 lineJoin: 'round',
                 weight: 8.0,
@@ -1274,11 +1281,11 @@
                         <td>' + (feature.properties['extensao'] !== null ? autolinker.link(feature.properties['extensao'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_SistemaIntegradodoAgresteEtapa1_16_0() {
@@ -1339,11 +1346,11 @@
                         <td>' + (feature.properties['extensao'] !== null ? autolinker.link(feature.properties['extensao'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_SistemaIntegradodoAgresteEmObras_17_0() {
@@ -1417,11 +1424,11 @@
                         <td>' + (feature.properties['extensao'] !== null ? autolinker.link(feature.properties['extensao'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_RamaldoAgreste_18_0() {
@@ -1482,11 +1489,11 @@
                         <td>' + (feature.properties['extensao'] !== null ? autolinker.link(feature.properties['extensao'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_SistemaIntegradoPaje_19_0(feature) {
@@ -1564,11 +1571,11 @@
                         <td>' + (feature.properties['extensao'] !== null ? autolinker.link(feature.properties['extensao'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_SistemaIntegradoPajeDuplicao_20_0() {
@@ -1629,11 +1636,11 @@
                         <td>' + (feature.properties['extensao'] !== null ? autolinker.link(feature.properties['extensao'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_SistemaAdutorNegreirosSalgueiro_21_0() {
@@ -1707,11 +1714,11 @@
                         <td>' + (feature.properties['extensao'] !== null ? autolinker.link(feature.properties['extensao'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_SistemaIntegradoSalgueiro_22_0() {
@@ -1772,11 +1779,11 @@
                         <td>' + (feature.properties['extensao'] !== null ? autolinker.link(feature.properties['extensao'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_SistemaAdutorSalgueiro_23_0() {
@@ -1837,11 +1844,11 @@
                         <td>' + (feature.properties['extensao'] !== null ? autolinker.link(feature.properties['extensao'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_RamalEntremontes_24_0() {
@@ -1849,7 +1856,7 @@
                 pane: 'pane_RamalEntremontes_24',
                 opacity: 1,
                 color: 'rgba(201,148,199,1.0)',
-                dashArray: '',
+                dashArray: '8.0,16.0',
                 lineCap: 'round',
                 lineJoin: 'round',
                 weight: 8.0,
@@ -1902,11 +1909,11 @@
                         <td>' + (feature.properties['extensao'] !== null ? autolinker.link(feature.properties['extensao'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_SistemaIntegradoNegreiros_25_0() {
@@ -1914,7 +1921,7 @@
                 pane: 'pane_SistemaIntegradoNegreiros_25',
                 opacity: 1,
                 color: 'rgba(65,171,93,1.0)',
-                dashArray: '32.0,16.0',
+                dashArray: '8.0,16.0',
                 lineCap: 'round',
                 lineJoin: 'round',
                 weight: 8.0,
@@ -1943,11 +1950,11 @@
                         <td>' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_SistemaAdutorNegreirosSerrita_26_0() {
@@ -1955,7 +1962,7 @@
                 pane: 'pane_SistemaAdutorNegreirosSerrita_26',
                 opacity: 1,
                 color: 'rgba(230,245,152,1.0)',
-                dashArray: '32.0,16.0',
+                dashArray: '8.0,16.0',
                 lineCap: 'round',
                 lineJoin: 'round',
                 weight: 8.0,
@@ -2008,11 +2015,11 @@
                         <td>' + (feature.properties['extensao'] !== null ? autolinker.link(feature.properties['extensao'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_SistemaIntegradoChapu_27_0() {
@@ -2073,11 +2080,11 @@
                         <td>' + (feature.properties['extensao'] !== null ? autolinker.link(feature.properties['extensao'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_SistemaIntegradodoOeste_28_0() {
@@ -2138,11 +2145,11 @@
                         <td>' + (feature.properties['extensao'] !== null ? autolinker.link(feature.properties['extensao'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_SistemaAdutorAlgodesOeste_29_0() {
@@ -2150,7 +2157,7 @@
                 pane: 'pane_SistemaAdutorAlgodesOeste_29',
                 opacity: 1,
                 color: 'rgba(94,94,94,1.0)',
-                dashArray: '',
+                dashArray: '7.0,14.0',
                 lineCap: 'round',
                 lineJoin: 'round',
                 weight: 7.0,
@@ -2203,11 +2210,11 @@
                         <td>' + (feature.properties['extensao'] !== null ? autolinker.link(feature.properties['extensao'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_SistemaIntegradodoOesteDuplicao_30_0() {
@@ -2268,11 +2275,11 @@
                         <td>' + (feature.properties['extensao'] !== null ? autolinker.link(feature.properties['extensao'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_SIAfrnioDormentesCaminho_31_0() {
@@ -2333,11 +2340,11 @@
                         <td>' + (feature.properties['extensao'] !== null ? autolinker.link(feature.properties['extensao'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_SistemaIntegradoAfrnioDormentes_32_0() {
@@ -2345,7 +2352,7 @@
                 pane: 'pane_SistemaIntegradoAfrnioDormentes_32',
                 opacity: 1,
                 color: 'rgba(0,104,83,1.0)',
-                dashArray: '32.0,16.0',
+                dashArray: '8.0,16.0',
                 lineCap: 'round',
                 lineJoin: 'round',
                 weight: 8.0,
@@ -2402,11 +2409,11 @@
                         <td>' + (feature.properties['Ordem'] !== null ? autolinker.link(feature.properties['Ordem'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_PortaldeIrrigaodoPISF_33_0() {
@@ -2479,11 +2486,11 @@
                         <td>' + (feature.properties['extensao'] !== null ? autolinker.link(feature.properties['extensao'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_EixoLeste_34_0() {
@@ -2544,11 +2551,11 @@
                         <td>' + (feature.properties['extensao'] !== null ? autolinker.link(feature.properties['extensao'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_AdutoraMoxot_35_0() {
@@ -2609,11 +2616,11 @@
                         <td>' + (feature.properties['extensao'] !== null ? autolinker.link(feature.properties['extensao'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_EixoNorte_36_0() {
@@ -2698,11 +2705,11 @@
                         <td>' + (feature.properties['adt_cd_epp'] !== null ? autolinker.link(feature.properties['adt_cd_epp'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_AdutoraSiriji_37_0() {
@@ -2787,11 +2794,11 @@
                         <td>' + (feature.properties['adt_cd_epp'] !== null ? autolinker.link(feature.properties['adt_cd_epp'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_AdutoraPirapama_38_0() {
@@ -2844,11 +2851,11 @@
                         <td class="visible-with-data" id="extensao">' + (feature.properties['extensao'] !== null ? autolinker.link(feature.properties['extensao'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_SistemaIntegradoEngenhoMaranho_39_0() {
@@ -2856,7 +2863,7 @@
                 pane: 'pane_SistemaIntegradoEngenhoMaranho_39',
                 opacity: 1,
                 color: 'rgba(191,129,45,1.0)',
-                dashArray: '',
+                dashArray: '8.0,16.0',
                 lineCap: 'round',
                 lineJoin: 'round',
                 weight: 8.0,
@@ -2901,11 +2908,11 @@
                         <td>' + (feature.properties['extensao'] !== null ? autolinker.link(feature.properties['extensao'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_SistemaIntegradoMetropolitanaNorte_40_0() {
@@ -2913,7 +2920,7 @@
                 pane: 'pane_SistemaIntegradoMetropolitanaNorte_40',
                 opacity: 1,
                 color: 'rgba(64,0,75,1.0)',
-                dashArray: '',
+                dashArray: '8.0,16.0',
                 lineCap: 'round',
                 lineJoin: 'round',
                 weight: 8.0,
@@ -2958,11 +2965,11 @@
                         <td>' + (feature.properties['extensao'] !== null ? autolinker.link(feature.properties['extensao'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_SistemaIntegradoMataNorte_41_0() {
@@ -2970,7 +2977,7 @@
                 pane: 'pane_SistemaIntegradoMataNorte_41',
                 opacity: 1,
                 color: 'rgba(174,143,186,1.0)',
-                dashArray: '',
+                dashArray: '8.0,16.0',
                 lineCap: 'round',
                 lineJoin: 'round',
                 weight: 8.0,
@@ -3015,21 +3022,21 @@
                         <td>' + (feature.properties['extensao'] !== null ? autolinker.link(feature.properties['extensao'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_SistemaIntegradoCarpina_42_0() {
             return {
                 pane: 'pane_SistemaIntegradoCarpina_42',
                 opacity: 1,
-                color: 'rgba(244,165,130,1.0)',
-                dashArray: '',
+                color: 'rgba(248,168,140,1.0)',
+                dashArray: '8.0,16.0',
                 lineCap: 'round',
-                lineJoin: 'round',
+                lineJoin: 'bevel',
                 weight: 8.0,
                 fillOpacity: 0,
                 interactive: true,
@@ -3096,11 +3103,11 @@
                         <td>' + (feature.properties['icon'] !== null ? autolinker.link(feature.properties['icon'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_SistemaAdutorLagoadoBarroOeste_43_0() {
@@ -3108,10 +3115,10 @@
                 pane: 'pane_SistemaAdutorLagoadoBarroOeste_43',
                 opacity: 1,
                 color: 'rgba(61,64,62,1.0)',
-                dashArray: '',
+                dashArray: '8.0,16.0',
                 lineCap: 'round',
                 lineJoin: 'round',
-                weight: 7.0,
+                weight: 8.0,
                 fillOpacity: 0,
                 interactive: true,
             }
@@ -3173,17 +3180,17 @@
                         <td>' + (feature.properties['Custo_Oper'] !== null ? autolinker.link(feature.properties['Custo_Oper'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_Comunidadesbeneficiadas_44_0() {
             return {
                 pane: 'pane_Comunidadesbeneficiadas_44',
-                radius: 3.0,
+                radius: 4.0,
                 opacity: 1,
                 color: 'rgba(102,102,102,1.0)',
                 dashArray: '',
@@ -3247,11 +3254,11 @@
                         <td>' + (feature.properties['Status'] !== null ? autolinker.link(feature.properties['Status'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_BarragensPISF_45_0(feature) {
@@ -3331,11 +3338,11 @@
                         <td>' + (feature.properties['LONGITUDE'] !== null ? autolinker.link(feature.properties['LONGITUDE'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_barragensSRHS_46_0(feature) {
@@ -3445,33 +3452,17 @@
                         <td>' + (feature.properties['geocodigo'] !== null ? autolinker.link(feature.properties['geocodigo'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_Municpiosbeneficiados_47_0() {
             return {
                 pane: 'pane_Municpiosbeneficiados_47',
                 radius: 7.0,
-                opacity: 1,
-                color: 'rgba(0,0,0,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(0,0,0,1.0)',
-                interactive: true,
-            }
-        }
-        function style_Municpiosbeneficiados_47_1() {
-            return {
-                pane: 'pane_Municpiosbeneficiados_47',
-                radius: 6.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -3487,27 +3478,21 @@
         map.createPane('pane_Municpiosbeneficiados_47');
         map.getPane('pane_Municpiosbeneficiados_47').style.zIndex = 447;
         map.getPane('pane_Municpiosbeneficiados_47').style['mix-blend-mode'] = 'normal';
-        var layer_Municpiosbeneficiados_47 = new L.geoJson.multiStyle(json_Municpiosbeneficiados_47, {
+        var layer_Municpiosbeneficiados_47 = new L.geoJson(json_Municpiosbeneficiados_47, {
             attribution: '',
             interactive: true,
             dataVar: 'json_Municpiosbeneficiados_47',
             layerName: 'layer_Municpiosbeneficiados_47',
             pane: 'pane_Municpiosbeneficiados_47',
             onEachFeature: pop_Municpiosbeneficiados_47,
-            pointToLayers: [function (feature, latlng) {
+            pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
                 return L.circleMarker(latlng, style_Municpiosbeneficiados_47_0(feature));
-            },function (feature, latlng) {
-                var context = {
-                    feature: feature,
-                    variables: {}
-                };
-                return L.circleMarker(latlng, style_Municpiosbeneficiados_47_1(feature));
             },
-        ]});
+        });
         bounds_group.addLayer(layer_Municpiosbeneficiados_47);
         map.addLayer(layer_Municpiosbeneficiados_47);
         function pop_MunicpioscominvestimentosPEXPENDB_48(feature, layer) {
@@ -3525,33 +3510,17 @@
                         <td>' + (feature.properties['geocodigo'] !== null ? autolinker.link(feature.properties['geocodigo'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_MunicpioscominvestimentosPEXPENDB_48_0() {
             return {
                 pane: 'pane_MunicpioscominvestimentosPEXPENDB_48',
                 radius: 7.0,
-                opacity: 1,
-                color: 'rgba(0,0,0,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(0,0,0,1.0)',
-                interactive: true,
-            }
-        }
-        function style_MunicpioscominvestimentosPEXPENDB_48_1() {
-            return {
-                pane: 'pane_MunicpioscominvestimentosPEXPENDB_48',
-                radius: 6.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -3567,27 +3536,21 @@
         map.createPane('pane_MunicpioscominvestimentosPEXPENDB_48');
         map.getPane('pane_MunicpioscominvestimentosPEXPENDB_48').style.zIndex = 448;
         map.getPane('pane_MunicpioscominvestimentosPEXPENDB_48').style['mix-blend-mode'] = 'normal';
-        var layer_MunicpioscominvestimentosPEXPENDB_48 = new L.geoJson.multiStyle(json_MunicpioscominvestimentosPEXPENDB_48, {
+        var layer_MunicpioscominvestimentosPEXPENDB_48 = new L.geoJson(json_MunicpioscominvestimentosPEXPENDB_48, {
             attribution: '',
             interactive: true,
             dataVar: 'json_MunicpioscominvestimentosPEXPENDB_48',
             layerName: 'layer_MunicpioscominvestimentosPEXPENDB_48',
             pane: 'pane_MunicpioscominvestimentosPEXPENDB_48',
             onEachFeature: pop_MunicpioscominvestimentosPEXPENDB_48,
-            pointToLayers: [function (feature, latlng) {
+            pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
                 return L.circleMarker(latlng, style_MunicpioscominvestimentosPEXPENDB_48_0(feature));
-            },function (feature, latlng) {
-                var context = {
-                    feature: feature,
-                    variables: {}
-                };
-                return L.circleMarker(latlng, style_MunicpioscominvestimentosPEXPENDB_48_1(feature));
             },
-        ]});
+        });
         bounds_group.addLayer(layer_MunicpioscominvestimentosPEXPENDB_48);
         map.addLayer(layer_MunicpioscominvestimentosPEXPENDB_48);
         function pop_Municpiosautnomos_49(feature, layer) {
@@ -3605,33 +3568,17 @@
                         <td>' + (feature.properties['geocodigo'] !== null ? autolinker.link(feature.properties['geocodigo'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_Municpiosautnomos_49_0() {
             return {
                 pane: 'pane_Municpiosautnomos_49',
                 radius: 7.0,
-                opacity: 1,
-                color: 'rgba(0,0,0,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(0,0,0,1.0)',
-                interactive: true,
-            }
-        }
-        function style_Municpiosautnomos_49_1() {
-            return {
-                pane: 'pane_Municpiosautnomos_49',
-                radius: 6.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -3647,27 +3594,21 @@
         map.createPane('pane_Municpiosautnomos_49');
         map.getPane('pane_Municpiosautnomos_49').style.zIndex = 449;
         map.getPane('pane_Municpiosautnomos_49').style['mix-blend-mode'] = 'normal';
-        var layer_Municpiosautnomos_49 = new L.geoJson.multiStyle(json_Municpiosautnomos_49, {
+        var layer_Municpiosautnomos_49 = new L.geoJson(json_Municpiosautnomos_49, {
             attribution: '',
             interactive: true,
             dataVar: 'json_Municpiosautnomos_49',
             layerName: 'layer_Municpiosautnomos_49',
             pane: 'pane_Municpiosautnomos_49',
             onEachFeature: pop_Municpiosautnomos_49,
-            pointToLayers: [function (feature, latlng) {
+            pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
                 return L.circleMarker(latlng, style_Municpiosautnomos_49_0(feature));
-            },function (feature, latlng) {
-                var context = {
-                    feature: feature,
-                    variables: {}
-                };
-                return L.circleMarker(latlng, style_Municpiosautnomos_49_1(feature));
             },
-        ]});
+        });
         bounds_group.addLayer(layer_Municpiosautnomos_49);
         map.addLayer(layer_Municpiosautnomos_49);
         function pop_MunicpioscominvestimentoBNB_50(feature, layer) {
@@ -3685,33 +3626,17 @@
                         <td>' + (feature.properties['geocodigo'] !== null ? autolinker.link(feature.properties['geocodigo'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_MunicpioscominvestimentoBNB_50_0() {
             return {
                 pane: 'pane_MunicpioscominvestimentoBNB_50',
                 radius: 7.0,
-                opacity: 1,
-                color: 'rgba(0,0,0,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(0,0,0,1.0)',
-                interactive: true,
-            }
-        }
-        function style_MunicpioscominvestimentoBNB_50_1() {
-            return {
-                pane: 'pane_MunicpioscominvestimentoBNB_50',
-                radius: 6.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -3727,27 +3652,21 @@
         map.createPane('pane_MunicpioscominvestimentoBNB_50');
         map.getPane('pane_MunicpioscominvestimentoBNB_50').style.zIndex = 450;
         map.getPane('pane_MunicpioscominvestimentoBNB_50').style['mix-blend-mode'] = 'normal';
-        var layer_MunicpioscominvestimentoBNB_50 = new L.geoJson.multiStyle(json_MunicpioscominvestimentoBNB_50, {
+        var layer_MunicpioscominvestimentoBNB_50 = new L.geoJson(json_MunicpioscominvestimentoBNB_50, {
             attribution: '',
             interactive: true,
             dataVar: 'json_MunicpioscominvestimentoBNB_50',
             layerName: 'layer_MunicpioscominvestimentoBNB_50',
             pane: 'pane_MunicpioscominvestimentoBNB_50',
             onEachFeature: pop_MunicpioscominvestimentoBNB_50,
-            pointToLayers: [function (feature, latlng) {
+            pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
                 return L.circleMarker(latlng, style_MunicpioscominvestimentoBNB_50_0(feature));
-            },function (feature, latlng) {
-                var context = {
-                    feature: feature,
-                    variables: {}
-                };
-                return L.circleMarker(latlng, style_MunicpioscominvestimentoBNB_50_1(feature));
             },
-        ]});
+        });
         bounds_group.addLayer(layer_MunicpioscominvestimentoBNB_50);
         map.addLayer(layer_MunicpioscominvestimentoBNB_50);
         function pop_MunicpioscominvestimentosEstaduais_51(feature, layer) {
@@ -3765,33 +3684,17 @@
                         <td>' + (feature.properties['geocodigo'] !== null ? autolinker.link(feature.properties['geocodigo'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_MunicpioscominvestimentosEstaduais_51_0() {
             return {
                 pane: 'pane_MunicpioscominvestimentosEstaduais_51',
                 radius: 7.0,
-                opacity: 1,
-                color: 'rgba(0,0,0,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(0,0,0,1.0)',
-                interactive: true,
-            }
-        }
-        function style_MunicpioscominvestimentosEstaduais_51_1() {
-            return {
-                pane: 'pane_MunicpioscominvestimentosEstaduais_51',
-                radius: 6.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -3807,27 +3710,21 @@
         map.createPane('pane_MunicpioscominvestimentosEstaduais_51');
         map.getPane('pane_MunicpioscominvestimentosEstaduais_51').style.zIndex = 451;
         map.getPane('pane_MunicpioscominvestimentosEstaduais_51').style['mix-blend-mode'] = 'normal';
-        var layer_MunicpioscominvestimentosEstaduais_51 = new L.geoJson.multiStyle(json_MunicpioscominvestimentosEstaduais_51, {
+        var layer_MunicpioscominvestimentosEstaduais_51 = new L.geoJson(json_MunicpioscominvestimentosEstaduais_51, {
             attribution: '',
             interactive: true,
             dataVar: 'json_MunicpioscominvestimentosEstaduais_51',
             layerName: 'layer_MunicpioscominvestimentosEstaduais_51',
             pane: 'pane_MunicpioscominvestimentosEstaduais_51',
             onEachFeature: pop_MunicpioscominvestimentosEstaduais_51,
-            pointToLayers: [function (feature, latlng) {
+            pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
                 return L.circleMarker(latlng, style_MunicpioscominvestimentosEstaduais_51_0(feature));
-            },function (feature, latlng) {
-                var context = {
-                    feature: feature,
-                    variables: {}
-                };
-                return L.circleMarker(latlng, style_MunicpioscominvestimentosEstaduais_51_1(feature));
             },
-        ]});
+        });
         bounds_group.addLayer(layer_MunicpioscominvestimentosEstaduais_51);
         map.addLayer(layer_MunicpioscominvestimentosEstaduais_51);
         function pop_MunicpioscominvestimentosPEXPENDBeEstado_52(feature, layer) {
@@ -3844,33 +3741,17 @@
                         <td>' + (feature.properties['geocodigo'] !== null ? autolinker.link(feature.properties['geocodigo'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_MunicpioscominvestimentosPEXPENDBeEstado_52_0() {
             return {
                 pane: 'pane_MunicpioscominvestimentosPEXPENDBeEstado_52',
                 radius: 7.0,
-                opacity: 1,
-                color: 'rgba(0,0,0,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(0,0,0,1.0)',
-                interactive: true,
-            }
-        }
-        function style_MunicpioscominvestimentosPEXPENDBeEstado_52_1() {
-            return {
-                pane: 'pane_MunicpioscominvestimentosPEXPENDBeEstado_52',
-                radius: 6.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -3886,27 +3767,21 @@
         map.createPane('pane_MunicpioscominvestimentosPEXPENDBeEstado_52');
         map.getPane('pane_MunicpioscominvestimentosPEXPENDBeEstado_52').style.zIndex = 452;
         map.getPane('pane_MunicpioscominvestimentosPEXPENDBeEstado_52').style['mix-blend-mode'] = 'normal';
-        var layer_MunicpioscominvestimentosPEXPENDBeEstado_52 = new L.geoJson.multiStyle(json_MunicpioscominvestimentosPEXPENDBeEstado_52, {
+        var layer_MunicpioscominvestimentosPEXPENDBeEstado_52 = new L.geoJson(json_MunicpioscominvestimentosPEXPENDBeEstado_52, {
             attribution: '',
             interactive: true,
             dataVar: 'json_MunicpioscominvestimentosPEXPENDBeEstado_52',
             layerName: 'layer_MunicpioscominvestimentosPEXPENDBeEstado_52',
             pane: 'pane_MunicpioscominvestimentosPEXPENDBeEstado_52',
             onEachFeature: pop_MunicpioscominvestimentosPEXPENDBeEstado_52,
-            pointToLayers: [function (feature, latlng) {
+            pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
                 return L.circleMarker(latlng, style_MunicpioscominvestimentosPEXPENDBeEstado_52_0(feature));
-            },function (feature, latlng) {
-                var context = {
-                    feature: feature,
-                    variables: {}
-                };
-                return L.circleMarker(latlng, style_MunicpioscominvestimentosPEXPENDBeEstado_52_1(feature));
             },
-        ]});
+        });
         bounds_group.addLayer(layer_MunicpioscominvestimentosPEXPENDBeEstado_52);
         map.addLayer(layer_MunicpioscominvestimentosPEXPENDBeEstado_52);
         var osmGeocoder = new L.Control.Geocoder({
