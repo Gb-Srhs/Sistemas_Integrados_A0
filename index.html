@@ -82,7 +82,7 @@
         <script src="data/MunicpiosPB_42.js"></script>
         <script src="data/TrechoRioIpojuca_43.js"></script>
         <script src="data/PortaldeIrrigaodoPISF_44.js"></script>
-        <script src="data/Censo_PE_2022_Municipios_45.js"></script>
+        <script src="data/MunicpiosPE_45.js"></script>
         <script src="data/BarragensPISF_46.js"></script>
         <script src="data/BarragensSRHS_47.js"></script>
         <script>
@@ -378,7 +378,7 @@
                 lineJoin: 'miter',
                 weight: 2.0, 
                 fill: true,
-                fillOpacity: 0.5,
+                fillOpacity: 1,
                 fillColor: 'rgba(202,222,185,1.0)',
                 interactive: false,
             }
@@ -3762,7 +3762,7 @@
                 lineJoin: 'miter',
                 weight: 2.0, 
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_MunicpiosPB_42');
@@ -3770,7 +3770,7 @@
         map.getPane('pane_MunicpiosPB_42').style['mix-blend-mode'] = 'normal';
         var layer_MunicpiosPB_42 = new L.geoJson(json_MunicpiosPB_42, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_MunicpiosPB_42',
             layerName: 'layer_MunicpiosPB_42',
             pane: 'pane_MunicpiosPB_42',
@@ -3901,7 +3901,7 @@
         });
         bounds_group.addLayer(layer_PortaldeIrrigaodoPISF_44);
         map.addLayer(layer_PortaldeIrrigaodoPISF_44);
-        function pop_Censo_PE_2022_Municipios_45(feature, layer) {
+        function pop_MunicpiosPE_45(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <th scope="row">Nome</th>\
@@ -3931,9 +3931,9 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_Censo_PE_2022_Municipios_45_0() {
+        function style_MunicpiosPE_45_0() {
             return {
-                pane: 'pane_Censo_PE_2022_Municipios_45',
+                pane: 'pane_MunicpiosPE_45',
                 radius: 7.0,
                 opacity: 1,
                 color: 'rgba(0,0,0,1.0)',
@@ -3947,9 +3947,9 @@
                 interactive: true,
             }
         }
-        function style_Censo_PE_2022_Municipios_45_1() {
+        function style_MunicpiosPE_45_1() {
             return {
-                pane: 'pane_Censo_PE_2022_Municipios_45',
+                pane: 'pane_MunicpiosPE_45',
                 radius: 6.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -3963,31 +3963,31 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_Censo_PE_2022_Municipios_45');
-        map.getPane('pane_Censo_PE_2022_Municipios_45').style.zIndex = 445;
-        map.getPane('pane_Censo_PE_2022_Municipios_45').style['mix-blend-mode'] = 'normal';
-        var layer_Censo_PE_2022_Municipios_45 = new L.geoJson.multiStyle(json_Censo_PE_2022_Municipios_45, {
+        map.createPane('pane_MunicpiosPE_45');
+        map.getPane('pane_MunicpiosPE_45').style.zIndex = 445;
+        map.getPane('pane_MunicpiosPE_45').style['mix-blend-mode'] = 'normal';
+        var layer_MunicpiosPE_45 = new L.geoJson.multiStyle(json_MunicpiosPE_45, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Censo_PE_2022_Municipios_45',
-            layerName: 'layer_Censo_PE_2022_Municipios_45',
-            pane: 'pane_Censo_PE_2022_Municipios_45',
-            onEachFeature: pop_Censo_PE_2022_Municipios_45,
+            dataVar: 'json_MunicpiosPE_45',
+            layerName: 'layer_MunicpiosPE_45',
+            pane: 'pane_MunicpiosPE_45',
+            onEachFeature: pop_MunicpiosPE_45,
             pointToLayers: [function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_Censo_PE_2022_Municipios_45_0(feature));
+                return L.circleMarker(latlng, style_MunicpiosPE_45_0(feature));
             },function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_Censo_PE_2022_Municipios_45_1(feature));
+                return L.circleMarker(latlng, style_MunicpiosPE_45_1(feature));
             },
         ]});
-        bounds_group.addLayer(layer_Censo_PE_2022_Municipios_45);
+        bounds_group.addLayer(layer_MunicpiosPE_45);
         function pop_BarragensPISF_46(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
@@ -4277,7 +4277,7 @@
         {label: '<b>INFRAESTRUTURA HÍDRICA DE PERNAMBUCO</b>', selectAllCheckbox: true, children: [
             {label: 'Barragens SRHS<br /><table><tr><td style="text-align: center;"><img src="legend/BarragensSRHS_47_Planejada0.png" /></td><td>Planejada</td></tr><tr><td style="text-align: center;"><img src="legend/BarragensSRHS_47_Iniciada1.png" /></td><td>Iniciada</td></tr><tr><td style="text-align: center;"><img src="legend/BarragensSRHS_47_Recuperação2.png" /></td><td>Recuperação</td></tr><tr><td style="text-align: center;"><img src="legend/BarragensSRHS_47_ObrasParalisadas3.png" /></td><td>Obras Paralisadas</td></tr></table>', layer: layer_BarragensSRHS_47},
             {label: 'Barragens PISF<br /><table><tr><td style="text-align: center;"><img src="legend/BarragensPISF_46_Existente0.png" /></td><td>Existente</td></tr><tr><td style="text-align: center;"><img src="legend/BarragensPISF_46_AssociadasaoPISF1.png" /></td><td>Associadas ao PISF</td></tr></table>', layer: layer_BarragensPISF_46},
-            {label: '<img src="legend/Censo_PE_2022_Municipios_45.png" /> Censo_PE_2022_Municipios', layer: layer_Censo_PE_2022_Municipios_45},
+            {label: '<img src="legend/MunicpiosPE_45.png" /> Municípios PE', layer: layer_MunicpiosPE_45},
             {label: '<img src="legend/PortaldeIrrigaodoPISF_44.png" /> Portal de Irrigação do PISF', layer: layer_PortaldeIrrigaodoPISF_44},
             {label: '<img src="legend/TrechoRioIpojuca_43.png" /> Trecho Rio Ipojuca', layer: layer_TrechoRioIpojuca_43},
             {label: '<img src="legend/MunicpiosPB_42.png" /> Municípios PB', layer: layer_MunicpiosPB_42},
@@ -4339,12 +4339,12 @@
         lay.addTo(map);
         setBounds();
         var i = 0;
-        layer_Censo_PE_2022_Municipios_45.eachLayer(function(layer) {
+        layer_MunicpiosPE_45.eachLayer(function(layer) {
             var context = {
                 feature: layer.feature,
                 variables: {}
             };
-            layer.bindTooltip((layer.feature.properties['nome'] !== null?String('<div style="color: #323232; font-size: 12pt; font-family: \'Calibri\', sans-serif;">' + layer.feature.properties['nome']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Censo_PE_2022_Municipios_45'});
+            layer.bindTooltip((layer.feature.properties['nome'] !== null?String('<div style="color: #323232; font-size: 12pt; font-family: \'Calibri\', sans-serif;">' + layer.feature.properties['nome']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_MunicpiosPE_45'});
             labels.push(layer);
             totalMarkers += 1;
               layer.added = true;
@@ -4377,15 +4377,15 @@
               addLabel(layer, i);
               i++;
         });
-        resetLabels([layer_SistemaIntegradoPaje_33,layer_Censo_PE_2022_Municipios_45,layer_BarragensPISF_46,layer_BarragensSRHS_47]);
+        resetLabels([layer_SistemaIntegradoPaje_33,layer_MunicpiosPE_45,layer_BarragensPISF_46,layer_BarragensSRHS_47]);
         map.on("zoomend", function(){
-            resetLabels([layer_SistemaIntegradoPaje_33,layer_Censo_PE_2022_Municipios_45,layer_BarragensPISF_46,layer_BarragensSRHS_47]);
+            resetLabels([layer_SistemaIntegradoPaje_33,layer_MunicpiosPE_45,layer_BarragensPISF_46,layer_BarragensSRHS_47]);
         });
         map.on("layeradd", function(){
-            resetLabels([layer_SistemaIntegradoPaje_33,layer_Censo_PE_2022_Municipios_45,layer_BarragensPISF_46,layer_BarragensSRHS_47]);
+            resetLabels([layer_SistemaIntegradoPaje_33,layer_MunicpiosPE_45,layer_BarragensPISF_46,layer_BarragensSRHS_47]);
         });
         map.on("layerremove", function(){
-            resetLabels([layer_SistemaIntegradoPaje_33,layer_Censo_PE_2022_Municipios_45,layer_BarragensPISF_46,layer_BarragensSRHS_47]);
+            resetLabels([layer_SistemaIntegradoPaje_33,layer_MunicpiosPE_45,layer_BarragensPISF_46,layer_BarragensSRHS_47]);
         });
         </script>
     </body>
