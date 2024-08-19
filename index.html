@@ -83,7 +83,7 @@
         <script>
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[-9.849358516470295,-39.06060421511044],[-6.112668184015924,-33.52330328438881]]);
+        }).fitBounds([[-12.144239021759327,-40.17927252741255],[-5.528451195959718,-30.375514435102247]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -586,7 +586,7 @@
                         <td>' + (feature.properties['nome'] !== null ? autolinker.link(feature.properties['nome'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Órgão Responsável</th>\
+                        <th scope="row">Órgão responsável</th>\
                         <td>' + (feature.properties['Orgao r'] !== null ? autolinker.link(feature.properties['Orgao r'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
@@ -679,7 +679,7 @@
                         <td>' + (feature.properties['nome'] !== null ? autolinker.link(feature.properties['nome'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Órgão Responsável</th>\
+                        <th scope="row">Órgão responsável</th>\
                         <td>' + (feature.properties['Orgao r'] !== null ? autolinker.link(feature.properties['Orgao r'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
@@ -772,7 +772,7 @@
                         <td>' + (feature.properties['nome'] !== null ? autolinker.link(feature.properties['nome'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Órgão Responsável</th>\
+                        <th scope="row">Órgão responsável</th>\
                         <td>' + (feature.properties['Orgao r'] !== null ? autolinker.link(feature.properties['Orgao r'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
@@ -865,7 +865,7 @@
                         <td>' + (feature.properties['Mapa'] !== null ? autolinker.link(feature.properties['Mapa'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Órgão Responsável</th>\
+                        <th scope="row">Órgão responsável</th>\
                         <td>' + (feature.properties['Orgao r'] !== null ? autolinker.link(feature.properties['Orgao r'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
@@ -962,7 +962,7 @@
                         <td>' + (feature.properties['nome'] !== null ? autolinker.link(feature.properties['nome'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Órgão Responsável</th>\
+                        <th scope="row">Órgão responsável</th>\
                         <td>' + (feature.properties['Etapa ex'] !== null ? autolinker.link(feature.properties['Etapa ex'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
@@ -1043,60 +1043,60 @@
         function pop_SistemaIntegradodoAgresteEtapa1_13(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <th scope="row">Empreendimento</th>\
-                        <td>' + (feature.properties['nome'] !== null ? autolinker.link(feature.properties['nome'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
                         <th scope="row">ID</th>\
-                        <td>' + (feature.properties['ID'] !== null ? autolinker.link(feature.properties['ID'].toLocaleString()) : '') + '</td>\
+                        <td>' + (feature.properties['ID_'] !== null ? autolinker.link(feature.properties['ID_'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Mapa</th>\
-                        <td>' + (feature.properties['Mapa'] !== null ? autolinker.link(feature.properties['Mapa'].toLocaleString()) : '') + '</td>\
+                        <td>' + (feature.properties['Mapa_'] !== null ? autolinker.link(feature.properties['Mapa_'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Órgão Responsável</th>\
-                        <td>' + (feature.properties['Orgao res'] !== null ? autolinker.link(feature.properties['Orgao res'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Empreendimento</th>\
+                        <td>' + (feature.properties['Empreendi_'] !== null ? autolinker.link(feature.properties['Empreendi_'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Órgão responsável</th>\
+                        <td>' + (feature.properties['Orgao_r_'] !== null ? autolinker.link(feature.properties['Orgao_r_'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Etapa executiva</th>\
-                        <td>' + (feature.properties['Etapa exe'] !== null ? autolinker.link(feature.properties['Etapa exe'].toLocaleString()) : '') + '</td>\
+                        <td>' + (feature.properties['Etapaex_'] !== null ? autolinker.link(feature.properties['Etapaex_'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Status</th>\
-                        <td>' + (feature.properties['Status'] !== null ? autolinker.link(feature.properties['Status'].toLocaleString()) : '') + '</td>\
+                        <td>' + (feature.properties['Status_'] !== null ? autolinker.link(feature.properties['Status_'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Valor global</th>\
-                        <td>' + (feature.properties['Valor g'] !== null ? autolinker.link(feature.properties['Valor g'].toLocaleString()) : '') + '</td>\
+                        <td>' + (feature.properties['Valor_g'] !== null ? autolinker.link(feature.properties['Valor_g'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Fonte de recursos</th>\
-                        <td>' + (feature.properties['Fonte de r'] !== null ? autolinker.link(feature.properties['Fonte de r'].toLocaleString()) : '') + '</td>\
+                        <td>' + (feature.properties['Fonte_r_'] !== null ? autolinker.link(feature.properties['Fonte_r_'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Início</th>\
-                        <td>' + (feature.properties['Início'] !== null ? autolinker.link(feature.properties['Início'].toLocaleString()) : '') + '</td>\
+                        <td>' + (feature.properties['Início_'] !== null ? autolinker.link(feature.properties['Início_'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Conclusão</th>\
-                        <td>' + (feature.properties['Conclusão'] !== null ? autolinker.link(feature.properties['Conclusão'].toLocaleString()) : '') + '</td>\
+                        <td>' + (feature.properties['Conclu_'] !== null ? autolinker.link(feature.properties['Conclu_'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Percentual de execução</th>\
-                        <td>' + (feature.properties['Percentual'] !== null ? autolinker.link(feature.properties['Percentual'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Data da última atualização</th>\
-                        <td>' + (feature.properties['Data da u'] !== null ? autolinker.link(feature.properties['Data da u'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Detalhamento</th>\
-                        <td>' + (feature.properties['Detalha'] !== null ? autolinker.link(feature.properties['Detalha'].toLocaleString()) : '') + '</td>\
+                        <td>' + (feature.properties['Percen_'] !== null ? autolinker.link(feature.properties['Percen_'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">População beneficiada</th>\
-                        <td>' + (feature.properties['Popu_'] !== null ? autolinker.link(feature.properties['Popu_'].toLocaleString()) : '') + '</td>\
+                        <td>' + (feature.properties['Popul_'] !== null ? autolinker.link(feature.properties['Popul_'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Data da última atualização</th>\
+                        <td>' + (feature.properties['Datau_'] !== null ? autolinker.link(feature.properties['Datau_'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Detalhamento</th>\
+                        <td>' + (feature.properties['Detalha_'] !== null ? autolinker.link(feature.properties['Detalha_'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -1107,12 +1107,12 @@
         }
 
         function style_SistemaIntegradodoAgresteEtapa1_13_0(feature) {
-            switch(String(feature.properties['Status'])) {
+            switch(String(feature.properties['Status_'])) {
                 case 'Em obras':
                     return {
                 pane: 'pane_SistemaIntegradodoAgresteEtapa1_13',
                 opacity: 1,
-                color: 'rgba(186,235,227,1.0)',
+                color: 'rgba(221,255,249,1.0)',
                 dashArray: '',
                 lineCap: 'square',
                 lineJoin: 'bevel',
@@ -1153,60 +1153,60 @@
         function pop_AdutoraSerroAzul_14(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <th scope="row">Empreendimento</th>\
-                        <td>' + (feature.properties['nome'] !== null ? autolinker.link(feature.properties['nome'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
                         <th scope="row">ID</th>\
-                        <td>' + (feature.properties['ID'] !== null ? autolinker.link(feature.properties['ID'].toLocaleString()) : '') + '</td>\
+                        <td>' + (feature.properties['ID_'] !== null ? autolinker.link(feature.properties['ID_'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Mapa</th>\
-                        <td>' + (feature.properties['Mapa'] !== null ? autolinker.link(feature.properties['Mapa'].toLocaleString()) : '') + '</td>\
+                        <td>' + (feature.properties['Mapa_'] !== null ? autolinker.link(feature.properties['Mapa_'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Órgão Responsável</th>\
-                        <td>' + (feature.properties['Orgao r'] !== null ? autolinker.link(feature.properties['Orgao r'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Empreendimento</th>\
+                        <td>' + (feature.properties['Empree_'] !== null ? autolinker.link(feature.properties['Empree_'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Órgão responsável</th>\
+                        <td>' + (feature.properties['Orgao_r'] !== null ? autolinker.link(feature.properties['Orgao_r'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Etapa executiva</th>\
-                        <td>' + (feature.properties['Etapa exe'] !== null ? autolinker.link(feature.properties['Etapa exe'].toLocaleString()) : '') + '</td>\
+                        <td>' + (feature.properties['Etapa_exe'] !== null ? autolinker.link(feature.properties['Etapa_exe'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Status</th>\
-                        <td>' + (feature.properties['Status'] !== null ? autolinker.link(feature.properties['Status'].toLocaleString()) : '') + '</td>\
+                        <td>' + (feature.properties['Status_'] !== null ? autolinker.link(feature.properties['Status_'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Valor global</th>\
-                        <td>' + (feature.properties['Valor g'] !== null ? autolinker.link(feature.properties['Valor g'].toLocaleString()) : '') + '</td>\
+                        <td>' + (feature.properties['Valor_g'] !== null ? autolinker.link(feature.properties['Valor_g'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Fonte de recursos</th>\
-                        <td>' + (feature.properties['Fonte de r'] !== null ? autolinker.link(feature.properties['Fonte de r'].toLocaleString()) : '') + '</td>\
+                        <td>' + (feature.properties['Fonte r_'] !== null ? autolinker.link(feature.properties['Fonte r_'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Início</th>\
-                        <td>' + (feature.properties['Início'] !== null ? autolinker.link(feature.properties['Início'].toLocaleString()) : '') + '</td>\
+                        <td>' + (feature.properties['Início_'] !== null ? autolinker.link(feature.properties['Início_'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Conclusão</th>\
-                        <td>' + (feature.properties['Conclusão'] !== null ? autolinker.link(feature.properties['Conclusão'].toLocaleString()) : '') + '</td>\
+                        <td>' + (feature.properties['Conclu'] !== null ? autolinker.link(feature.properties['Conclu'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Percentual de execução</th>\
-                        <td>' + (feature.properties['Percentua'] !== null ? autolinker.link(feature.properties['Percentua'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Data da última atualização</th>\
-                        <td>' + (feature.properties['Data da u'] !== null ? autolinker.link(feature.properties['Data da u'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Detalhamento</th>\
-                        <td>' + (feature.properties['Detalha'] !== null ? autolinker.link(feature.properties['Detalha'].toLocaleString()) : '') + '</td>\
+                        <td>' + (feature.properties['Percentual'] !== null ? autolinker.link(feature.properties['Percentual'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">População beneficiada</th>\
-                        <td>' + (feature.properties['Popu_'] !== null ? autolinker.link(feature.properties['Popu_'].toLocaleString()) : '') + '</td>\
+                        <td>' + (feature.properties['Popul_'] !== null ? autolinker.link(feature.properties['Popul_'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Data da última atualização</th>\
+                        <td>' + (feature.properties['Dat_u'] !== null ? autolinker.link(feature.properties['Dat_u'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Detalhamento</th>\
+                        <td>' + (feature.properties['Det_'] !== null ? autolinker.link(feature.properties['Det_'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -1217,12 +1217,12 @@
         }
 
         function style_AdutoraSerroAzul_14_0(feature) {
-            switch(String(feature.properties['Status'])) {
+            switch(String(feature.properties['Status_'])) {
                 case 'Em obras':
                     return {
                 pane: 'pane_AdutoraSerroAzul_14',
                 opacity: 1,
-                color: 'rgba(177,223,255,1.0)',
+                color: 'rgba(201,233,255,1.0)',
                 dashArray: '',
                 lineCap: 'square',
                 lineJoin: 'bevel',
@@ -1275,7 +1275,7 @@
                         <td>' + (feature.properties['nome'] !== null ? autolinker.link(feature.properties['nome'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Órgão Responsável</th>\
+                        <th scope="row">Órgão responsável</th>\
                         <td>' + (feature.properties['Orgao r'] !== null ? autolinker.link(feature.properties['Orgao r'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
@@ -1368,7 +1368,7 @@
                         <td>' + (feature.properties['nome'] !== null ? autolinker.link(feature.properties['nome'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Órgão Responsável</th>\
+                        <th scope="row">Órgão responsável</th>\
                         <td>' + (feature.properties['Orgao r'] !== null ? autolinker.link(feature.properties['Orgao r'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
@@ -1461,7 +1461,7 @@
                         <td>' + (feature.properties['nome'] !== null ? autolinker.link(feature.properties['nome'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Órgão Responsável</th>\
+                        <th scope="row">Órgão responsável</th>\
                         <td>' + (feature.properties['Orgao r'] !== null ? autolinker.link(feature.properties['Orgao r'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
@@ -1554,7 +1554,7 @@
                         <td>' + (feature.properties['adt_nm_adu'] !== null ? autolinker.link(feature.properties['adt_nm_adu'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Órgão Responsável</th>\
+                        <th scope="row">Órgão responsável</th>\
                         <td>' + (feature.properties['Orgao r'] !== null ? autolinker.link(feature.properties['Orgao r'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
@@ -1647,7 +1647,7 @@
                         <td>' + (feature.properties['nome'] !== null ? autolinker.link(feature.properties['nome'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Órgão Responsável</th>\
+                        <th scope="row">Órgão responsável</th>\
                         <td>' + (feature.properties['Orgao r'] !== null ? autolinker.link(feature.properties['Orgao r'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
@@ -1740,7 +1740,7 @@
                         <td>' + (feature.properties['nome'] !== null ? autolinker.link(feature.properties['nome'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Órgão Responsável</th>\
+                        <th scope="row">Órgão responsável</th>\
                         <td>' + (feature.properties['Orgao r'] !== null ? autolinker.link(feature.properties['Orgao r'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
@@ -1833,7 +1833,7 @@
                         <td>' + (feature.properties['nome'] !== null ? autolinker.link(feature.properties['nome'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Órgão Responsável</th>\
+                        <th scope="row">Órgão responsável </th>\
                         <td>' + (feature.properties['Orgao r'] !== null ? autolinker.link(feature.properties['Orgao r'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
@@ -1926,7 +1926,7 @@
                         <td>' + (feature.properties['nome'] !== null ? autolinker.link(feature.properties['nome'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Órgão Responsável</th>\
+                        <th scope="row">Órgão responsável</th>\
                         <td>' + (feature.properties['Orgao'] !== null ? autolinker.link(feature.properties['Orgao'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
@@ -2100,7 +2100,7 @@
                         <td>' + (feature.properties['nome'] !== null ? autolinker.link(feature.properties['nome'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Órgão Responsável</th>\
+                        <th scope="row">Órgão responsável</th>\
                         <td>' + (feature.properties['Orgao r'] !== null ? autolinker.link(feature.properties['Orgao r'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
@@ -2233,7 +2233,7 @@
                         <td>' + (feature.properties['Data da ul'] !== null ? autolinker.link(feature.properties['Data da ul'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th> scope="row">Detalhamento</th>\
+                        <th scope="row">Detalhamento </th>\
                         <td>' + (feature.properties['Detalha'] !== null ? autolinker.link(feature.properties['Detalha'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
@@ -2286,7 +2286,7 @@
                         <td>' + (feature.properties['Empreend'] !== null ? autolinker.link(feature.properties['Empreend'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Órgão Responsável</th>\
+                        <th scope="row">Órgão responsável</th>\
                         <td>' + (feature.properties['Orgao'] !== null ? autolinker.link(feature.properties['Orgao'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
@@ -2604,7 +2604,7 @@
                         <td>' + (feature.properties['Percen'] !== null ? autolinker.link(feature.properties['Percen'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th> scope="row">População Beneficiada </th>\
+                        <th scope="row">População Beneficiada</th>\
                         <td>' + (feature.properties['pop_'] !== null ? autolinker.link(feature.properties['pop_'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
@@ -2653,60 +2653,60 @@
         function pop_SistemaIntegradoPaje_30(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <th scope="row">Empreendimento</th>\
-                        <td>' + (feature.properties['nome'] !== null ? autolinker.link(feature.properties['nome'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
                         <th scope="row">ID</th>\
-                        <td>' + (feature.properties['ID'] !== null ? autolinker.link(feature.properties['ID'].toLocaleString()) : '') + '</td>\
+                        <td>' + (feature.properties['ID_'] !== null ? autolinker.link(feature.properties['ID_'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Mapa</th>\
-                        <td>' + (feature.properties['Mapa'] !== null ? autolinker.link(feature.properties['Mapa'].toLocaleString()) : '') + '</td>\
+                        <td>' + (feature.properties['Mapa_'] !== null ? autolinker.link(feature.properties['Mapa_'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Órgão Responsável</th>\
-                        <td>' + (feature.properties['Orgao r'] !== null ? autolinker.link(feature.properties['Orgao r'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Empreendimento</th>\
+                        <td>' + (feature.properties['Empreend_'] !== null ? autolinker.link(feature.properties['Empreend_'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Órgão responsável</th>\
+                        <td>' + (feature.properties['Órgão r_'] !== null ? autolinker.link(feature.properties['Órgão r_'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Etapa executiva</th>\
-                        <td>' + (feature.properties['Etapa exe'] !== null ? autolinker.link(feature.properties['Etapa exe'].toLocaleString()) : '') + '</td>\
+                        <td>' + (feature.properties['Etapa_exec'] !== null ? autolinker.link(feature.properties['Etapa_exec'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Status</th>\
-                        <td>' + (feature.properties['Status'] !== null ? autolinker.link(feature.properties['Status'].toLocaleString()) : '') + '</td>\
+                        <td>' + (feature.properties['Status_'] !== null ? autolinker.link(feature.properties['Status_'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Valor global</th>\
-                        <td>' + (feature.properties['Valor g'] !== null ? autolinker.link(feature.properties['Valor g'].toLocaleString()) : '') + '</td>\
+                        <td>' + (feature.properties['Valor glo'] !== null ? autolinker.link(feature.properties['Valor glo'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Fonte de recursos</th>\
-                        <td>' + (feature.properties['Fonte de r'] !== null ? autolinker.link(feature.properties['Fonte de r'].toLocaleString()) : '') + '</td>\
+                        <td>' + (feature.properties['Fonte re_'] !== null ? autolinker.link(feature.properties['Fonte re_'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Início</th>\
-                        <td>' + (feature.properties['Início'] !== null ? autolinker.link(feature.properties['Início'].toLocaleString()) : '') + '</td>\
+                        <td>' + (feature.properties['Início_'] !== null ? autolinker.link(feature.properties['Início_'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Conclusão</th>\
-                        <td>' + (feature.properties['Conclusão'] !== null ? autolinker.link(feature.properties['Conclusão'].toLocaleString()) : '') + '</td>\
+                        <td>' + (feature.properties['Conclusao'] !== null ? autolinker.link(feature.properties['Conclusao'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Percentual de execução</th>\
-                        <td>' + (feature.properties['Percen'] !== null ? autolinker.link(feature.properties['Percen'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Data da última atualização</th>\
-                        <td>' + (feature.properties['Data da u'] !== null ? autolinker.link(feature.properties['Data da u'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Detalhamento</th>\
-                        <td>' + (feature.properties['Detalha'] !== null ? autolinker.link(feature.properties['Detalha'].toLocaleString()) : '') + '</td>\
+                        <td>' + (feature.properties['Percentua_'] !== null ? autolinker.link(feature.properties['Percentua_'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">População beneficiada</th>\
-                        <td>' + (feature.properties['Ppopu_'] !== null ? autolinker.link(feature.properties['Ppopu_'].toLocaleString()) : '') + '</td>\
+                        <td>' + (feature.properties['Popu_'] !== null ? autolinker.link(feature.properties['Popu_'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Data da última atualização</th>\
+                        <td>' + (feature.properties['Data da u_'] !== null ? autolinker.link(feature.properties['Data da u_'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Detalhamento</th>\
+                        <td>' + (feature.properties['Detalha_'] !== null ? autolinker.link(feature.properties['Detalha_'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -2717,16 +2717,16 @@
         }
 
         function style_SistemaIntegradoPaje_30_0(feature) {
-            switch(String(feature.properties['Status'])) {
+            switch(String(feature.properties['Status_'])) {
                 case 'Em obras':
                     return {
                 pane: 'pane_SistemaIntegradoPaje_30',
                 opacity: 1,
-                color: 'rgba(249,194,169,1.0)',
+                color: 'rgba(255,203,179,1.0)',
                 dashArray: '',
                 lineCap: 'square',
                 lineJoin: 'bevel',
-                weight: 4.0,
+                weight: 8.0,
                 fillOpacity: 0,
                 interactive: true,
             }
@@ -2992,7 +2992,7 @@
                         <td>' + (feature.properties['Conclusão'] !== null ? autolinker.link(feature.properties['Conclusão'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th> scope="row">Percentual de Execução </th>\
+                        <th scope="row">Percentual de Execução</th>\
                         <td>' + (feature.properties['Percentual'] !== null ? autolinker.link(feature.properties['Percentual'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
@@ -3057,7 +3057,7 @@
                         <td>' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Órgão Responsável</th>\
+                        <th scope="row">Órgão responsável</th>\
                         <td>' + (feature.properties['Orgao r'] !== null ? autolinker.link(feature.properties['Orgao r'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
@@ -3406,10 +3406,6 @@
         function pop_EixoNorte_39(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <th scope="row">Empreendimento</th>\
-                        <td>' + (feature.properties['nome'] !== null ? autolinker.link(feature.properties['nome'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
                         <th scope="row">ID</th>\
                         <td>' + (feature.properties['ID'] !== null ? autolinker.link(feature.properties['ID'].toLocaleString()) : '') + '</td>\
                     </tr>\
@@ -3418,7 +3414,11 @@
                         <td>' + (feature.properties['Mapa'] !== null ? autolinker.link(feature.properties['Mapa'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Órgão Responsável</th>\
+                        <th scope="row">Empreendimento</th>\
+                        <td>' + (feature.properties['nome'] !== null ? autolinker.link(feature.properties['nome'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Órgão responsável</th>\
                         <td>' + (feature.properties['orgao res'] !== null ? autolinker.link(feature.properties['orgao res'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
@@ -3499,10 +3499,6 @@
         function pop_EixoLeste_40(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <th scope="row">Empreendimento</th>\
-                        <td>' + (feature.properties['nome'] !== null ? autolinker.link(feature.properties['nome'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
                         <th scope="row">ID</th>\
                         <td>' + (feature.properties['ID'] !== null ? autolinker.link(feature.properties['ID'].toLocaleString()) : '') + '</td>\
                     </tr>\
@@ -3511,7 +3507,11 @@
                         <td>' + (feature.properties['Mapa'] !== null ? autolinker.link(feature.properties['Mapa'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Órgão Responsável</th>\
+                        <th scope="row">Empreendimento</th>\
+                        <td>' + (feature.properties['nome'] !== null ? autolinker.link(feature.properties['nome'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Órgão responsável</th>\
                         <td>' + (feature.properties['Orgao r'] !== null ? autolinker.link(feature.properties['Orgao r'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
@@ -3604,7 +3604,7 @@
                         <td>' + (feature.properties['Empre'] !== null ? autolinker.link(feature.properties['Empre'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Órgão Responsável</th>\
+                        <th scope="row">Órgão responsável</th>\
                         <td>' + (feature.properties['Orgao r'] !== null ? autolinker.link(feature.properties['Orgao r'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
